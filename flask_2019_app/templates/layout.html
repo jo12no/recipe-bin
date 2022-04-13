@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles.css') }}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<title>Recipe Bin</title>
+	<meta name = "viewport" id = "viewport_device">
+</head>
+<body class="bg-light">
+	<!--Navbar-->
+	<nav class="navbar navbar-expand-lg navbar-dark primary-color">
+
+	  <!-- Navbar brand -->
+	  <a class="navbar-brand logo" href="{{ url_for('index') }}">Recipe Bin</a>
+
+	  <!-- Collapse button -->
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+	    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+
+	  <!-- Collapsible content -->
+	  <div class="collapse navbar-collapse" id="basicExampleNav">
+
+	    <!-- Links -->
+	    <ul class="navbar-nav mr-auto">
+	    {% if index %}
+	      <li class="nav-item active">
+	    {% else %}
+	      <li class="nav-item">
+	    {% endif %}
+	        <a class="nav-link" href="{{ url_for('index') }}">Home
+	          <span class="sr-only">(current)</span>
+	        </a>
+	      </li>
+	      {% if current_user.is_anonymous %}
+	      <li class="nav-item">
+	        <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+	      </li>
+	      {% else %}
+	      {% if publish %}
+	        <li class="nav-item active">
+	      {% else %}
+	        <li class="nav-item">
+	      {% endif %}
+	        <a class="nav-link" href="{{ url_for('publish') }}">Publish</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+	      </li>
+	      <li class="nav-item active">
+	        <a class="nav-link">[ Logged in as: {{ current_user.username }} ]</a>
+	      </li>
+	      
+	      {% endif %}
+	    </ul>
+	    <!-- Links -->
+	    {% if current_user.is_authenticated %}
+	    <form class="form-inline" action="{{ url_for('search') }}">
+	      <div class="md-form my-0">
+	        <input name="q" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" >
+	      </div>
+	    </form>
+	     {% endif %}
+	  </div>
+	  <!-- Collapsible content -->
+
+	</nav>
+	<!--/.Navbar-->
+	
+	<div class="flash">
+	{% with messages = get_flashed_messages() %}
+	{% if messages %}
+		{% for message in messages %}
+			<div class="alert alert-dark" style="text-align: center;" role="alert">{{ message }}</div>
+		{% endfor %}
+	{% endif %}
+	{% endwith %}
+	{% block content%}{% endblock %}
+	</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script type="text/javascript">
+ if(navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/Android/i)
+    || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/IEMobile/i)){
+        $("#viewport_device").attr("content", "initial-scale = 0.9");
+    }
+    else if(navigator.userAgent.match(/iPad/i)){
+        $("#viewport_device").attr("content", "initial-scale = 1.00");
+    }
+</script>
+</body>
+</html>

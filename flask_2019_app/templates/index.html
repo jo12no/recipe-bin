@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div align="center" class="col-md-12">
+			<ul class="list-inline">
+		    {% for post in posts %}
+		        <li class="list-inline-item"><a href="/post/{{ post.title_urlify }}" > <h6 class="post-title">{{ post.title.upper() }}</h6> </a>
+				<a href="/post/{{ post.title_urlify }}" > <img width="270" height="180" alt="image" src="{{ post.image_url }}"> </a></li>
+		    {% endfor %}
+			</ul>
+			<div>
+				{% if prev_page_url %}
+				 <a class="post-title" href="{{ prev_page_url }}">Prev</a>
+				{% endif %}
+
+				{% if next_page_url %}
+				 <a class="post-title" href="{{ next_page_url }}">Next</a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

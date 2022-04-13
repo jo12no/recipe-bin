@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+		<h3 class="post-title">Search Results:</h3>
+		<p>--------</p>
+		{% for post in posts %}
+		    {% include '_individual-post.html' %}
+		    <p>--------</p>
+		{% endfor %}
+		</div>
+	</div>
+</div>
+{% endblock %}

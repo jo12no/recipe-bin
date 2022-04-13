@@ -1,0 +1,59 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<script src="https://cdn.tiny.cloud/1/kill6zwl7sk7grl4ync82heyfm7xya8xvh7rag9edum2xyx6/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+			  <script>tinymce.init({ 
+			  						selector:'textarea',
+			  						width : 450, plugins: "lists",
+			  						mobile: {
+			  						    theme: 'silver'
+			  						},
+			  						toolbar: ["undo redo | styleselect | bold italic | numlist bullist"]
+			  						});</script>
+				{% if publish %}
+				  <h3 class="post-title">Publish</h3>
+				{% else %}
+				  <h3 class="post-title">Edit</h3>
+				{% endif %}
+				<p>
+				<form action="" method="post" enctype="multipart/form-data" novalidate>
+					{{ form.hidden_tag() }}
+					<p>
+						{{ form.title.label }}
+						{{ form.title() }}
+						{% for error in form.title.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</p>
+					<p>
+						{{ form.ingredients.label }}
+						{{ form.ingredients() }}
+						{% for error in form.ingredients.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</p>
+					<p>
+						{{ form.body.label }}
+						{{ form.body() }}
+						{% for error in form.body.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					<p>
+						{{ form.image.label }} (optional):
+						{{ form.image() }}
+						{% for error in form.image.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</p>
+					<p>
+						{{ form.tags.label }}
+						{{ form.tags() }}
+						{% for error in form.tags.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</p>
+					<p>{{ form.submit() }}</p>
+				</form>
+		</div>
+	</div>
+</div>
